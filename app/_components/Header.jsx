@@ -9,8 +9,7 @@ function Header() {
     <div>
       <div
         className="flex items-center justify-between
-        p-5 shadow-sm
-        "
+        p-5 shadow-sm "
       >
         <Image
           src="/logo.svg"
