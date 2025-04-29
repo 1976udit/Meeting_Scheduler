@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "../../components/ui/button";
-// import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
+import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs";
 import Image from "next/image";
 import React from "react";
 
@@ -33,15 +33,13 @@ function Header() {
           </li>
         </ul>
         <div className="flex gap-5">
-          <Button variant="ghost">Login</Button>
-          <Button>Get Started</Button>
-          {/* <LoginLink>
+          <LoginLink>
             {" "}
-            
+            <Button variant="ghost">Login</Button>
           </LoginLink>
           <RegisterLink>
-            
-          </RegisterLink> */}
+            <Button>Get Started</Button>
+          </RegisterLink>
         </div>
       </div>
     </div>
