@@ -2,32 +2,43 @@
 import { app } from '../../../config/firebase.Config'
 import { LogoutLink, useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs'
 import { doc, getDoc ,getFirestore } from 'firebase/firestore'
-import React, { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 
 const Dashboard = () => {
 
   const db = getFirestore(app)
   const {user} = useKindeBrowserClient()
+  const [loading, setLoading] = useState(true)
   // console.log(user)
+  const router = useRouter()
+
+  
+  useEffect(() => {
+    user && isBussinessRegistered();
+  }, [user]);
 
   const isBussinessRegistered = async () => {
-    try {
       const docRef = doc(db, "BUSINESS", user?.email);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
         console.log("Document data:", docSnap.data());
+        setLoading(false)
       } else {
         console.log("No such document!");
+        setLoading(false)
+        router.replace('/create-business')
       }
-    } catch (error) {
-      console.error("Error fetching document:", error.message);
-    }
   };
 
-  useEffect(() => {
-    user && isBussinessRegistered();
-  }, [user]);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-2xl font-bold">Loading...</h1>
+      </div>
+    )
+  }
 
   return (
     <div>
