@@ -21,14 +21,15 @@ const Dashboard = () => {
   const isBussinessRegistered = async () => {
       const docRef = doc(db, "BUSINESS", user?.email);
       const docSnap = await getDoc(docRef);
+      // console.log(docSnap.exists());
 
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
+      if (!docSnap.exists()) {
+        console.log("Document data:", docSnap.id);
         setLoading(false)
       } else {
         console.log("No such document!");
         setLoading(false)
-        router.replace('/create-business')
+        router.replace('/create-business') 
       }
   };
 
